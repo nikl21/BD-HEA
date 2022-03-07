@@ -3,5 +3,6 @@
  */
 
 export default {
-  logo: require('@/Assets/Images/carelogo.png'),
+  // logo: require('@/Assets/Images/carelogo.png'),
+  welcome: require('../Assets/Images/welcomeImage.png'),
 };

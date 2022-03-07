@@ -26,8 +26,8 @@ export const Colors = {
   secondaryColor: '#EA5F65',
   coursesColor: '#4CB25B',
   feebackgroundColor: '#5AC6CC',
-  grey: '#606060',
-  inputGrey: '#F3F2F1',
+  gray: '#606060',
+  inputGray: '#F3F2F1',
 };
 
 /**
