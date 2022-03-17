@@ -11,18 +11,18 @@ import React from 'react';
 import i18n from '../../Translations';
 
 export default function ClassSelect({name}) {
-  const {setFieldValue, errors} = useFormikContext();
+  const {setFieldValue, errors, touched} = useFormikContext();
 
   return (
-    <FormControl w="130" isRequired isInvalid={name in errors}>
+    <FormControl w="130" required isInvalid={name in errors}>
       <Text fontSize="16">{i18n.t('addAttendance.programLabel')}</Text>
       <Box marginTop="2">
         <Select
           onValueChange={value => setFieldValue(name, value)}
-          // bg="gray"
+          bg="gray"
           h="10"
           color="text"
-          accessibilityLabel="Choose Service"
+          accessibilityLabel="Choose Class"
           placeholder={i18n.t('addAttendance.programPlaceholder')}
           _selectedItem={{
             bg: 'teal.600',
@@ -33,9 +33,11 @@ export default function ClassSelect({name}) {
           <Select.Item label={i18n.t('addAttendance.sncu')} value="sncu" />
         </Select>{' '}
       </Box>
-      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-        Please make a selection!
-      </FormControl.ErrorMessage>
+      {errors[name] && touched[name] && (
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+          Please make a selection!
+        </FormControl.ErrorMessage>
+      )}
     </FormControl>
   );
 }

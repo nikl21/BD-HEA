@@ -5,6 +5,7 @@ import {Images} from '../Theme';
 import {View} from 'react-native';
 import HamburgerMenu from '../Components/HamburgerMenu';
 import IconFe from 'react-native-vector-icons/Feather';
+import NavButton from '../Components/Button';
 
 const HomeScreen = ({navigation}) => {
   return (
@@ -26,16 +27,29 @@ const HomeScreen = ({navigation}) => {
             />
           </Center>
         </VStack>
-        <Center bg="appColor" w="100%" height="40%" mt="auto">
+        <Box bg="appColor" w="100%" height="40%" mt="auto" py="10" px="5">
           <Text
-            fontSize="3xl"
+            fontSize="2xl"
             color="white"
             w="200"
-            textAlign="center"
+            // textAlign="center"
             fontWeight="800">
             {I18n.t('home.name')}
           </Text>
-        </Center>
+          <Text fontSize="xl" color="white">
+            {I18n.t('home.subTitle')}
+          </Text>
+          <Box py="4">
+            <NavButton
+              label={I18n.t('home.button1')}
+              onPress={() => navigation.navigate('Mark Attendance')}
+            />
+            <NavButton
+              label={I18n.t('home.button2')}
+              onPress={() => navigation.navigate('Session')}
+            />
+          </Box>
+        </Box>
       </VStack>
     </Box>
   );

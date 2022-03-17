@@ -11,6 +11,7 @@ import {Colors} from '../Theme';
 import Icon from 'react-native-vector-icons/AntDesign';
 // import AppText from './AppText';
 import {AppContext} from './AppContext';
+import i18n from '../Translations';
 
 export default function CustomDrawerContent(props) {
   // const {isLoggedIn, setLoggedIn, setUserData} = useContext(AppContext);
@@ -29,7 +30,7 @@ export default function CustomDrawerContent(props) {
           </TouchableOpacity>
         </View>
         <View style={styles.drawerContent}>
-          <Text style={styles.drawerHeader}>Hello!</Text>
+          <Text style={styles.drawerHeader}>{i18n.t('menu.hello')}!</Text>
         </View>
         <DrawerItemList {...props} />
         <DrawerItem

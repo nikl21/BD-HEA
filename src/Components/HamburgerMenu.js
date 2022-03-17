@@ -17,6 +17,7 @@ export default function HamburgerMenu({navigation}) {
         top: '12',
         right: '10',
       }}
+      mt="4"
       onPress={() => {
         navigation.toggleDrawer();
       }}

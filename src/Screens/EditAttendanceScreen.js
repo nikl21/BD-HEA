@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import IconFe from 'react-native-vector-icons/Feather';
 import IconFa from 'react-native-vector-icons/FontAwesome';
+import IconIc from 'react-native-vector-icons/Ionicons';
+
 import storage from '@react-native-firebase/storage';
 import {
   Box,
@@ -11,10 +13,9 @@ import {
   HStack,
   Pressable,
   Modal,
-  FormControl,
   Flex,
   Spacer,
-  WarningOutlineIcon,
+  Icon,
 } from 'native-base';
 import i18n from '../Translations';
 import HamburgerMenu from '../Components/HamburgerMenu';
@@ -25,8 +26,10 @@ import AppDatePicker from '../Components/Form/AppDatePicker';
 import {ClassFormSchema} from '../Services/formData';
 import SubmitButton from '../Components/Form/SubmitButton';
 import ClassSelect from '../Components/Form/ClassSelect';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {StyleSheet} from 'react-native';
 
-const AddAttendanceScreen = ({navigation}) => {
+const EditAttendanceScreen = ({navigation}) => {
   const [response, setResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
   //Todo: Add Class Id
@@ -64,12 +67,33 @@ const AddAttendanceScreen = ({navigation}) => {
   }
   return (
     <Box safeArea>
+      <Box
+        position="absolute"
+        mt="10"
+        style={styles.button}
+        _android={{
+          top: '2',
+          left: '8',
+        }}
+        _ios={{
+          top: '8',
+          left: '10',
+        }}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('hi');
+            navigation.pop();
+          }}>
+          <IconIc name="arrow-back" size={30} color="black" absolute />
+        </TouchableOpacity>
+      </Box>
+
       <HamburgerMenu navigation={navigation} />
 
       <VStack space={10} my={24} px={8}>
         <Center>
           <Text fontSize={26} fontWeight={600}>
-            {i18n.t('addAttendance.title')}
+            {i18n.t('editClass.title')}
           </Text>
         </Center>
         <Pressable onPress={() => setShowModal(true)}>
@@ -173,8 +197,8 @@ const AddAttendanceScreen = ({navigation}) => {
               <AppFormField
                 width="100%"
                 name="location"
-                label={i18n.t('addAttendance.location')}
-                placeholder={i18n.t('addAttendance.ward')}
+                label={'Location in the facility'}
+                placeholder="Ward"
               />
             </Flex>
           </Center>
@@ -185,4 +209,10 @@ const AddAttendanceScreen = ({navigation}) => {
   );
 };
 
-export default AddAttendanceScreen;
+export default EditAttendanceScreen;
+
+const styles = StyleSheet.create({
+  button: {
+    zIndex: 1,
+  },
+});

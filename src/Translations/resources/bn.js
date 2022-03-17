@@ -2,6 +2,9 @@ export default {
   home: {
     title: 'পরিবার সাথে, হাতে হাতে l',
     name: 'কেয়ার কম্পানিয়ন',
+    subTitle: 'আপনি আজকে কি করতে চাচ্ছেন?',
+    button1: 'উপস্থিতি মার্ক করুন',
+    button2: 'আগের ক্লাসগুলো দেখুন',
   },
   addAttendance: {
     title: 'ক্লাস যোগ করুন',
@@ -11,11 +14,29 @@ export default {
     gallery: 'গ্যালারি',
     date: 'তারিখ',
     programLabel: 'কোন ক্লাস',
-    programPlaceholder: 'Choose Type',
+    programPlaceholder: 'পছন্দ করা',
     anc: 'এ.এন.সি ',
     pnc: 'পি.এন.সি ',
     sncu: 'এস.এন.সি.ইউ',
     noOfMothers: 'মায়েদের সংখ্যা',
     noOfCaregivers: 'পরিচর্যাকারীর সংখ্যা',
+    location: 'হাসপাতালের কোন স্থানে',
+    ward: 'ওয়ার্ড',
+  },
+  editClass: {
+    title: 'ক্লাসের বিস্তারিত এডিট করুন ',
+  },
+  menu: {
+    hello: 'হ্যালো',
+    profile: 'প্রোফাইল',
+    logout: 'লগ আউট',
+    markAttendance: 'উপস্থিতি মার্ক করুন',
+    previousClasses: 'আগের ক্লাসগুলো দেখুন',
+  },
+  sessions: {
+    hello: 'হ্যালো!',
+    title: 'আগের ক্লাসগুলোর উপর ক্লিক করে দেখুন অথবা এডিট করুন ',
+    subtitle1: 'আক্রান্ত রোগীরা',
+    subtitle2: 'টি ক্লাস নেয়া হয়েছে',
   },
 };

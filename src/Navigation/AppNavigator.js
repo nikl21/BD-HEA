@@ -6,6 +6,8 @@ import CustomDrawerContent from './DrawerContent';
 import {Box, Text} from 'native-base';
 import {Colors} from '../Theme';
 import SessionListingScreen from '../Screens/SessionListingScreen';
+import EditAttendanceScreen from '../Screens/EditAttendanceScreen';
+import SessionNavigator from './SessionNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -38,11 +40,9 @@ export default function AppNavigator() {
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={HomeScreen} options={{}} />
-      <Drawer.Screen name="Add Session" component={AddAttendanceScreen} />
-      <Drawer.Screen
-        name="Previous Sessions"
-        component={SessionListingScreen}
-      />
+      <Drawer.Screen name="Mark Attendance" component={AddAttendanceScreen} />
+
+      <Drawer.Screen name="Session" component={SessionNavigator} />
     </Drawer.Navigator>
   );
 }

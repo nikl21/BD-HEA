@@ -6,12 +6,13 @@ export default function AppFormField({
   name,
   label,
   placeholder,
+  width = '130',
   ...otherProps
 }) {
   const {setFieldTouched, handleBlur, handleChange, errors, touched, values} =
     useFormikContext();
   return (
-    <FormControl isInvalid={name in errors} w="130">
+    <FormControl isInvalid={name in errors} w={width}>
       <Text fontSize="16" mb="2">
         {label}
       </Text>
