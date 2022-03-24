@@ -1,218 +1,80 @@
 import React, {useState} from 'react';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import IconFe from 'react-native-vector-icons/Feather';
-import IconFa from 'react-native-vector-icons/FontAwesome';
-import IconIc from 'react-native-vector-icons/Ionicons';
+import NetInfo from '@react-native-community/netinfo';
 
-import storage from '@react-native-firebase/storage';
-import {
-  Box,
-  Text,
-  VStack,
-  Center,
-  HStack,
-  Pressable,
-  Modal,
-  Flex,
-  Spacer,
-  Icon,
-} from 'native-base';
+import firestore from '@react-native-firebase/firestore';
+
+import {Box, Text, VStack, Center, ScrollView, useToast} from 'native-base';
 import i18n from '../Translations';
 import HamburgerMenu from '../Components/HamburgerMenu';
-import AppForm from '../Components/Form/AppForm';
+import AttendanceForm from '../Components/Form/AttendanceForm';
+import BackButton from '../Components/BackButton';
 
-import AppFormField from '../Components/Form/AppFormField';
-import AppDatePicker from '../Components/Form/AppDatePicker';
-import {ClassFormSchema} from '../Services/formData';
-import SubmitButton from '../Components/Form/SubmitButton';
-import ClassSelect from '../Components/Form/ClassSelect';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {StyleSheet} from 'react-native';
-
-const EditAttendanceScreen = ({navigation}) => {
-  const [response, setResponse] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  //Todo: Add Class Id
-
-  function uploadImageToStorage() {
-    if (response) {
-      let reference = storage().ref(response.assets[0].fileName);
-      console.log('hi', response.assets[0].uri);
-      let task = reference
-        .putFile(response.assets[0].uri)
-        .then(() => {
-          console.log('Image uploaded to the bucket!');
-        })
-        .catch(e => console.log('uploading image error => ', e));
-    }
-  }
-
-  //Upload Image Modal
-  async function launchCam(type = 'camera') {
-    if (type === 'camera') {
-      await launchCamera(
-        {
-          saveToPhotos: true,
-          mediaType: 'photo',
-          includeBase64: false,
-        },
-        setResponse,
-      );
-    } else {
-      await launchImageLibrary({}, setResponse);
-    }
-
-    setShowModal(!showModal);
-    uploadImageToStorage();
-  }
+const EditAttendanceScreen = ({route, navigation}) => {
+  const {key, ...initialValues} = route.params;
+  const toast = useToast();
+  console.log(initialValues.date.toDate());
   return (
     <Box safeArea>
-      <Box
-        position="absolute"
-        mt="10"
-        style={styles.button}
-        _android={{
-          top: '2',
-          left: '8',
-        }}
-        _ios={{
-          top: '8',
-          left: '10',
-        }}>
-        <TouchableOpacity
+      <ScrollView>
+        <BackButton
           onPress={() => {
-            console.log('hi');
             navigation.pop();
-          }}>
-          <IconIc name="arrow-back" size={30} color="black" absolute />
-        </TouchableOpacity>
-      </Box>
+          }}
+        />
 
-      <HamburgerMenu navigation={navigation} />
+        <HamburgerMenu navigation={navigation} />
 
-      <VStack space={10} my={24} px={8}>
         <Center>
-          <Text fontSize={26} fontWeight={600}>
+          <Text
+            textAlign="center"
+            fontSize={26}
+            w={220}
+            px={5}
+            mt={6}
+            fontWeight={600}>
             {i18n.t('editClass.title')}
           </Text>
         </Center>
-        <Pressable onPress={() => setShowModal(true)}>
-          <Center
-            bg="inputGray"
-            h="16"
-            borderWidth="1"
-            borderColor="appColor"
-            borderStyle="dashed"
-            rounded={10}>
-            <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-              <Modal.Content marginTop={40} marginBottom={'auto'}>
-                <Modal.CloseButton />
-                <Modal.Header>
-                  <Center>
-                    <Text fontSize="22">
-                      {i18n.t('addAttendance.modalTitle')}
-                    </Text>
-                  </Center>
-                </Modal.Header>
-                <Modal.Body>
-                  <HStack px={'8'} py={'2'} space={10}>
-                    <Pressable
-                      onPress={() => launchCam()}
-                      bg="appColor"
-                      size={20}
-                      py={2}
-                      rounded={10}
-                      pt="2"
-                      _pressed={{bg: 'yellow.600'}}>
-                      <VStack space={'2'} alignItems="center">
-                        <IconFe name="camera" size={30} color="white" />
-                        <Text fontWeight={700} color="white" fontSize="16">
-                          {i18n.t('addAttendance.camera')}
-                        </Text>
-                      </VStack>
-                    </Pressable>
-                    <Pressable
-                      onPress={() => launchCam('gallery')}
-                      bg="appColor"
-                      size={20}
-                      py={2}
-                      rounded={10}
-                      _pressed={{bg: 'yellow.600'}}>
-                      <VStack space={'2'} alignItems="center" pt="2">
-                        <IconFa name="photo" size={30} color="white" />
-                        <Text fontWeight={700} color="white" fontSize="16">
-                          {i18n.t('addAttendance.camera')}
-                        </Text>
-                      </VStack>
-                    </Pressable>
-                  </HStack>
-                </Modal.Body>
-              </Modal.Content>
-            </Modal>
-            <HStack space={10}>
-              <IconFe name="upload" size={30} color="#212529" />
-              <Text fontSize={18}>{i18n.t('addAttendance.uploadButton')}</Text>
-            </HStack>
-          </Center>
-        </Pressable>
-        <AppForm
-          initialValues={{
-            noOfCaregivers: '',
-            noOfMothers: '',
-            dateOfSession: new Date(),
-            classType: '',
-            date: new Date(),
-            location: '',
-          }}
-          validateOnChange={false}
-          onSubmit={values => {
-            console.log(values);
-          }}
-          validationSchema={ClassFormSchema}>
-          <Center mb="16">
-            <Flex flexDirection="row" w="100%" pb="5">
-              <AppDatePicker
-                name="dateOfSession"
-                label={i18n.t('addAttendance.date')}
-              />
-              <Spacer />
-              <ClassSelect name="classType" />
-            </Flex>
-            <Flex flexDirection="row" w="100%" pb="5">
-              <AppFormField
-                name="noOfMothers"
-                label={i18n.t('addAttendance.noOfMothers')}
-                keyboardType="numeric"
-                placeholder="19"
-              />
-              <Spacer />
-              <AppFormField
-                name="noOfCaregivers"
-                label={i18n.t('addAttendance.noOfCaregivers')}
-                keyboardType="numeric"
-                placeholder="31"
-              />
-            </Flex>
-            <Flex w="100%">
-              <AppFormField
-                width="100%"
-                name="location"
-                label={'Location in the facility'}
-                placeholder="Ward"
-              />
-            </Flex>
-          </Center>
-          <SubmitButton />
-        </AppForm>
-      </VStack>
+        <VStack space={10} p={8}>
+          <AttendanceForm
+            initialValues={initialValues}
+            onSubmit={(values, {resetForm}) => {
+              console.log(values);
+              firestore()
+                .collection('classes')
+                .doc(key)
+                .update(values)
+                .then(() => {
+                  resetForm();
+                  console.log('User updated!');
+                  navigation.pop();
+                  // scrollRef.current?.scrollTo({
+                  //   y: 0,
+                  //   animated: true,
+                  // });
+                });
+              console.log(values);
+              toast.show({
+                duration: 1200,
+                render: () => {
+                  return (
+                    <Box bg="primary.500" px="2" py="1" rounded="sm" mb={5}>
+                      Class updated!
+                    </Box>
+                  );
+                },
+              });
+              NetInfo.fetch().then(state => {
+                if (!state.isConnected) {
+                  navigation.pop();
+                }
+              });
+            }}
+          />
+        </VStack>
+      </ScrollView>
     </Box>
   );
 };
 
 export default EditAttendanceScreen;
-
-const styles = StyleSheet.create({
-  button: {
-    zIndex: 1,
-  },
-});

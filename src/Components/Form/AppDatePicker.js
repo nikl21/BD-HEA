@@ -5,10 +5,14 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 
 function formatDate(date) {
-  const options = {year: 'numeric', month: 'long', day: 'numeric'};
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
   var date1 = new Date(date);
   // @ts-ignore
-  return date1.toLocaleDateString([], options);
+  return Intl.DateTimeFormat('bn', options).format(date1);
 }
 
 export default function AppDatePicker({
@@ -17,19 +21,23 @@ export default function AppDatePicker({
   maximumDate = new Date(),
   minimumDate = null,
 }) {
-  const {setFieldValue, handleBlur, handleChange, errors, touched, values} =
-    useFormikContext();
+  const {setFieldValue, errors, touched, values} = useFormikContext();
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <FormControl isInvalid={name in errors} w="130">
-        <Text fontSize="16" mb="2">
-          {label}
-        </Text>
+        <FormControl.Label fontSize="16">{label}</FormControl.Label>
 
         <Pressable onPress={() => setOpen(true)}>
-          <Center h="10" bg="gray" rounded="sm">
-            <Text>{formatDate(values[name])}</Text>
+          <Center height="10" border="1" bg="gray" rounded="0">
+            <Text>
+              {formatDate(
+                values[name] instanceof Date
+                  ? values[name]
+                  : values[name].toDate(),
+              )}
+            </Text>
           </Center>
           <DatePicker
             date={
@@ -37,6 +45,7 @@ export default function AppDatePicker({
                 ? values[name]
                 : values[name].toDate()
             }
+            locale={'bn-BA'}
             modal
             mode="date"
             label={label}

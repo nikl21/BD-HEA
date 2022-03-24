@@ -8,6 +8,7 @@ import {Colors} from '../Theme';
 import SessionListingScreen from '../Screens/SessionListingScreen';
 import EditAttendanceScreen from '../Screens/EditAttendanceScreen';
 import SessionNavigator from './SessionNavigator';
+import i18n from '../Translations';
 
 const Drawer = createDrawerNavigator();
 
@@ -40,9 +41,15 @@ export default function AppNavigator() {
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={HomeScreen} options={{}} />
-      <Drawer.Screen name="Mark Attendance" component={AddAttendanceScreen} />
+      <Drawer.Screen
+        name={i18n.t('menu.markAttendance')}
+        component={AddAttendanceScreen}
+      />
 
-      <Drawer.Screen name="Session" component={SessionNavigator} />
+      <Drawer.Screen
+        name={i18n.t('menu.previousClasses')}
+        component={SessionNavigator}
+      />
     </Drawer.Navigator>
   );
 }

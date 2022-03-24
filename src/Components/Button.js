@@ -14,7 +14,6 @@ export default function NavButton({label, ...otherProps}) {
         textTransform="uppercase"
         color="appColor"
         fontWeight="600"
-        x
         fontSize="16">
         {label}
       </Text>

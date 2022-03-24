@@ -1,6 +1,15 @@
 import {extendTheme} from 'native-base';
 
 export const theme = extendTheme({
+  components: {
+    Select: {
+      baseStyle: {
+        borderRadius: 0,
+        marginTop: 0,
+        paddingTop: 0,
+      },
+    },
+  },
   colors: {
     // Add new color
     transparent: 'rgba(0,0,0,0)',
@@ -31,6 +40,7 @@ export const theme = extendTheme({
       800: '#905508',
       900: '#774105',
     },
+
     button: {
       100: '#FDFDFD',
       200: '#FCFCFC',

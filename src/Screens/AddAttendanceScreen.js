@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import NetInfo from '@react-native-community/netinfo';
 import IconFe from 'react-native-vector-icons/Feather';
 import IconFa from 'react-native-vector-icons/FontAwesome';
 import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
 import {
   Box,
   Text,
@@ -11,24 +13,16 @@ import {
   HStack,
   Pressable,
   Modal,
-  FormControl,
-  Flex,
-  Spacer,
-  WarningOutlineIcon,
+  useToast,
 } from 'native-base';
 import i18n from '../Translations';
 import HamburgerMenu from '../Components/HamburgerMenu';
-import AppForm from '../Components/Form/AppForm';
-
-import AppFormField from '../Components/Form/AppFormField';
-import AppDatePicker from '../Components/Form/AppDatePicker';
-import {ClassFormSchema} from '../Services/formData';
-import SubmitButton from '../Components/Form/SubmitButton';
-import ClassSelect from '../Components/Form/ClassSelect';
+import AttendanceForm from '../Components/Form/AttendanceForm';
 
 const AddAttendanceScreen = ({navigation}) => {
   const [response, setResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const toast = useToast();
   //Todo: Add Class Id
 
   function uploadImageToStorage() {
@@ -60,18 +54,27 @@ const AddAttendanceScreen = ({navigation}) => {
     }
 
     setShowModal(!showModal);
-    uploadImageToStorage();
   }
   return (
     <Box safeArea>
       <HamburgerMenu navigation={navigation} />
 
-      <VStack space={10} my={24} px={8}>
-        <Center>
-          <Text fontSize={26} fontWeight={600}>
-            {i18n.t('addAttendance.title')}
-          </Text>
-        </Center>
+      <Center>
+        <Text
+          fontSize={26}
+          fontWeight={600}
+          w={220}
+          px={5}
+          _android={{
+            mt: '10',
+          }}
+          _ios={{
+            mt: '5',
+          }}>
+          {i18n.t('addAttendance.title')}
+        </Text>
+      </Center>
+      <VStack space={10} p={8}>
         <Pressable onPress={() => setShowModal(true)}>
           <Center
             bg="inputGray"
@@ -131,55 +134,34 @@ const AddAttendanceScreen = ({navigation}) => {
             </HStack>
           </Center>
         </Pressable>
-        <AppForm
-          initialValues={{
-            noOfCaregivers: '',
-            noOfMothers: '',
-            dateOfSession: new Date(),
-            classType: '',
-            date: new Date(),
-            location: '',
-          }}
-          validateOnChange={false}
-          onSubmit={values => {
+        <AttendanceForm
+          onSubmit={(values, {resetForm}) => {
             console.log(values);
+            uploadImageToStorage();
+            firestore()
+              .collection('classes')
+              .add(values)
+              .then(() => {
+                navigation.navigate(i18n.t('menu.previousClasses'));
+                console.log('User added!');
+              });
+            resetForm();
+            toast.show({
+              render: () => {
+                return (
+                  <Box bg="primary.500" px="2" py="1" rounded="sm" mb={5}>
+                    Class Added!
+                  </Box>
+                );
+              },
+            });
+            NetInfo.fetch().then(state => {
+              if (!state.isConnected) {
+                navigation.navigate(i18n.t('menu.previousClasses'));
+              }
+            });
           }}
-          validationSchema={ClassFormSchema}>
-          <Center mb="16">
-            <Flex flexDirection="row" w="100%" pb="5">
-              <AppDatePicker
-                name="dateOfSession"
-                label={i18n.t('addAttendance.date')}
-              />
-              <Spacer />
-              <ClassSelect name="classType" />
-            </Flex>
-            <Flex flexDirection="row" w="100%" pb="5">
-              <AppFormField
-                name="noOfMothers"
-                label={i18n.t('addAttendance.noOfMothers')}
-                keyboardType="numeric"
-                placeholder="19"
-              />
-              <Spacer />
-              <AppFormField
-                name="noOfCaregivers"
-                label={i18n.t('addAttendance.noOfCaregivers')}
-                keyboardType="numeric"
-                placeholder="31"
-              />
-            </Flex>
-            <Flex w="100%">
-              <AppFormField
-                width="100%"
-                name="location"
-                label={i18n.t('addAttendance.location')}
-                placeholder={i18n.t('addAttendance.ward')}
-              />
-            </Flex>
-          </Center>
-          <SubmitButton />
-        </AppForm>
+        />
       </VStack>
     </Box>
   );

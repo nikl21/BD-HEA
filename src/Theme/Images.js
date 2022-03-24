@@ -5,4 +5,5 @@
 export default {
   // logo: require('@/Assets/Images/carelogo.png'),
   welcome: require('../Assets/Images/welcomeImage.png'),
+  team: require('../Assets/Images/nurseTeam.png'),
 };

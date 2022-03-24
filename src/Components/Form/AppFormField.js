@@ -12,18 +12,18 @@ export default function AppFormField({
   const {setFieldTouched, handleBlur, handleChange, errors, touched, values} =
     useFormikContext();
   return (
-    <FormControl isInvalid={name in errors} w={width}>
-      <Text fontSize="16" mb="2">
+    <FormControl isInvalid={name in errors} w={width} {...otherProps}>
+      <FormControl.Label fontSize="16" mb="2">
         {label}
-      </Text>
+      </FormControl.Label>
       <Input
-        size="xl"
         onBlur={handleBlur(name)}
         placeholder={placeholder}
         bg="gray"
+        rounded={0}
+        h="10"
         onChangeText={handleChange(name)}
         value={values[name]}
-        keyboardType="numeric"
         {...otherProps}
       />
       <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>

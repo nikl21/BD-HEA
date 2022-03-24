@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^8.2.0",
     "@react-native-firebase/app": "14.5.0",
     "@react-native-firebase/firestore": "^13.0.1",
     "@react-native-firebase/storage": "^14.5.0",
@@ -19,6 +20,8 @@
     "axios": "^0.24.0",
     "formik": "^2.2.9",
     "i18next": "^21.4.2",
+    "intl": "^1.2.5",
+    "jsc-android": "^250230.2.1",
     "native-base": "^3.3.5",
     "react": "17.0.2",
     "react-i18next": "^11.14.0",
@@ -31,6 +34,7 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.11.1",
     "react-native-svg": "^12.1.1",
+    "react-native-ux-cam": "^5.3.4",
     "react-native-vector-icons": "^9.0.0",
     "yup": "^0.32.11"
   },

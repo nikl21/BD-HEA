@@ -4,15 +4,30 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Dash from 'react-native-dash';
 
 import {Colors} from '../Theme';
+import i18n from '../Translations';
 
 function ListSession({name, date, index, onPress}) {
-  const dayNo = date.getDate().toString().padStart(2, '0');
-  const month = date.toLocaleString('en-US', {month: 'long'});
-  const day = date.toLocaleDateString('locale', {weekday: 'long'});
+  const dayNo = Intl.DateTimeFormat('bn', {day: '2-digit'}).format(
+    new Date(date),
+  );
+  // const month = new Date(date).toLocaleString('bn-BA', {month: 'long'});
+  const month = Intl.DateTimeFormat('bn', {month: 'long'}).format(
+    new Date(date),
+  );
+  const weekday = [
+    'রবিবার',
+    'সোমবার',
+    'মঙ্গলবার',
+    'বুধবার',
+    'বৃহস্পতিবার',
+    'শুক্রবার',
+    'শনিবার',
+  ];
+  const day = weekday[new Date(date).getDay()];
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        {index % 2 == 0 ? (
+        {index % 2 === 0 ? (
           <View style={styles.parent}>
             <View style={styles.circle} />
             <Dash style={styles.dottedBorder} dashColor={Colors.appColor} />
@@ -40,7 +55,13 @@ function ListSession({name, date, index, onPress}) {
               style={styles.icon}
             />
           </View>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.name}>
+            {name === 'pnc'
+              ? i18n.t('addAttendance.pnc')
+              : name === 'pnc'
+              ? i18n.t('addAttendance.pnc')
+              : i18n.t('addAttendance.sncu')}
+          </Text>
           <View style={styles.seperator} />
         </View>
       </View>
@@ -110,7 +131,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     borderStyle: 'dotted',
     alignItems: 'center',
-    marginTop: -2,
+    marginTop: -10,
   },
   circle: {
     display: 'flex',

@@ -33,7 +33,7 @@ export default function CustomDrawerContent(props) {
           <Text style={styles.drawerHeader}>{i18n.t('menu.hello')}!</Text>
         </View>
         <DrawerItemList {...props} />
-        <DrawerItem
+        {/* <DrawerItem
           label="Logout"
           onPress={() => {
             // setLoggedIn(!isLoggedIn);
@@ -41,7 +41,7 @@ export default function CustomDrawerContent(props) {
             // AsyncStorage.removeItem('token');
             // AsyncStorage.removeItem('username');
           }}
-        />
+        /> */}
       </View>
     </DrawerContentScrollView>
   );

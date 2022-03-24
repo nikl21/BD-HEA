@@ -7,7 +7,10 @@ import {theme} from './Theme/NativeBaseTheme';
 import AddAttendanceScreen from './Screens/AddAttendanceScreen';
 import AppNavigator from './Navigation/AppNavigator';
 import {LogBox} from 'react-native';
+import RNUxcam from 'react-native-ux-cam';
 
+RNUxcam.optIntoSchematicRecordings(); // Add this line to enable iOS screen recordings
+RNUxcam.startWithKey('ksolnklhh3makr3');
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
 ]);

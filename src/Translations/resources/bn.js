@@ -18,10 +18,14 @@ export default {
     anc: 'এ.এন.সি ',
     pnc: 'পি.এন.সি ',
     sncu: 'এস.এন.সি.ইউ',
+    nurseName: 'নার্সের নাম',
+    placeholderName: 'ফাতেমা',
+    hospitalName: 'হসপিটা',
     noOfMothers: 'মায়েদের সংখ্যা',
     noOfCaregivers: 'পরিচর্যাকারীর সংখ্যা',
     location: 'হাসপাতালের কোন স্থানে',
     ward: 'ওয়ার্ড',
+    submit: 'সাবমিট',
   },
   editClass: {
     title: 'ক্লাসের বিস্তারিত এডিট করুন ',
@@ -35,6 +39,7 @@ export default {
   },
   sessions: {
     hello: 'হ্যালো!',
+    home: '',
     title: 'আগের ক্লাসগুলোর উপর ক্লিক করে দেখুন অথবা এডিট করুন ',
     subtitle1: 'আক্রান্ত রোগীরা',
     subtitle2: 'টি ক্লাস নেয়া হয়েছে',
