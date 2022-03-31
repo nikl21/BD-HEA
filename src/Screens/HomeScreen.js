@@ -8,22 +8,22 @@ import i18n from '../Translations';
 
 const HomeScreen = ({navigation}) => {
   return (
-    <Box safeArea>
+    <Box safeArea bg="white">
       <HamburgerMenu navigation={navigation} />
 
       <VStack>
-        <VStack space={4} alignItems="center" py="20" height="60%">
-          <Text fontWeight={400} fontSize={30} color={'appColor'}>
-            {I18n.t('home.title')}
-          </Text>
+        <VStack space={0} alignItems="center" py="10" height="60%">
           <Center>
             <Image
-              size={250}
+              size={300}
               resizeMode={'contain'}
               // borderRadius={100}
               source={Images.welcome}
               alt="Alternate Text"
             />
+            <Text fontWeight={400} fontSize={30} color={'appColor'}>
+              {I18n.t('home.title')}
+            </Text>
           </Center>
         </VStack>
         <Box bg="appColor" height="40%" mt="auto" py="10" px="5">
@@ -38,7 +38,7 @@ const HomeScreen = ({navigation}) => {
           <Text fontSize="xl" color="white">
             {I18n.t('home.subTitle')}
           </Text>
-          <Box py="4">
+          <Box py="2">
             <NavButton
               label={I18n.t('home.button1')}
               onPress={() => navigation.navigate(i18n.t('menu.markAttendance'))}

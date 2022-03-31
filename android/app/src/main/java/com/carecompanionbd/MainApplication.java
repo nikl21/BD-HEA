@@ -11,8 +11,9 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.facebook.react.bridge.JSIModulePackage; 
-  import com.swmansion.reanimated.ReanimatedJSIModulePackage; 
-public class MainApplication extends Application implements ReactApplication {
+import com.swmansion.reanimated.ReanimatedJSIModulePackage;
+import androidx.multidex.MultiDexApplication; 
+public class MainApplication extends MultiDexApplication implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {

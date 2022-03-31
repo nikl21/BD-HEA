@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Text, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Dash from 'react-native-dash';
 
@@ -56,11 +56,12 @@ function ListSession({name, date, index, onPress}) {
             />
           </View>
           <Text style={styles.name}>
-            {name === 'pnc'
+            {/* {name === 'pnc'
               ? i18n.t('addAttendance.pnc')
               : name === 'pnc'
               ? i18n.t('addAttendance.pnc')
-              : i18n.t('addAttendance.sncu')}
+              : i18n.t('addAttendance.sncu')} */}
+            {name}
           </Text>
           <View style={styles.seperator} />
         </View>
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     borderStyle: 'dotted',
     alignItems: 'center',
-    marginTop: -10,
+    marginTop: Platform.OS === 'android' ? -3 : -10,
   },
   circle: {
     display: 'flex',

@@ -1,13 +1,12 @@
-import {Button} from 'native-base';
+import {Pressable} from 'native-base';
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import IconFe from 'react-native-vector-icons/Feather';
 
 export default function HamburgerMenu({navigation}) {
   return (
-    <Button
+    <Pressable
       // bg="gray"
-      colorScheme="button"
       position="absolute"
       _android={{
         top: '6',
@@ -15,15 +14,15 @@ export default function HamburgerMenu({navigation}) {
       }}
       _ios={{
         top: '12',
-        right: '10',
+        right: '8',
       }}
       mt="4"
       onPress={() => {
         navigation.toggleDrawer();
       }}
       style={styles.button}>
-      <IconFe name="menu" size={30} color="black" />
-    </Button>
+      <IconFe name="menu" size={30} color="#4d4d4d" />
+    </Pressable>
   );
 }
 

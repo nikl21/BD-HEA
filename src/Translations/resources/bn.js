@@ -1,7 +1,7 @@
 export default {
   home: {
-    title: 'পরিবার সাথে, হাতে হাতে l',
-    name: 'কেয়ার কম্পানিয়ন',
+    title: 'স্বাগতম !',
+    name: 'কেয়ার কম্প্যানিয়ন',
     subTitle: 'আপনি আজকে কি করতে চাচ্ছেন?',
     button1: 'উপস্থিতি মার্ক করুন',
     button2: 'আগের ক্লাসগুলো দেখুন',
@@ -17,21 +17,24 @@ export default {
     programPlaceholder: 'পছন্দ করা',
     anc: 'এ.এন.সি ',
     pnc: 'পি.এন.সি ',
-    sncu: 'এস.এন.সি.ইউ',
+    sncu: 'এস.সি.এ.এন.ইউ',
     nurseName: 'নার্সের নাম',
     placeholderName: 'ফাতেমা',
-    hospitalName: 'হসপিটা',
+    hospitalName: 'হাসপাতাল',
     noOfMothers: 'মায়েদের সংখ্যা',
     noOfCaregivers: 'পরিচর্যাকারীর সংখ্যা',
+    totalNo: 'মোট সংখ্যা',
     location: 'হাসপাতালের কোন স্থানে',
     ward: 'ওয়ার্ড',
     submit: 'সাবমিট',
+    dateTitle: 'তারিখ বাছুন',
   },
   editClass: {
     title: 'ক্লাসের বিস্তারিত এডিট করুন ',
   },
   menu: {
     hello: 'হ্যালো',
+    home: 'হোম',
     profile: 'প্রোফাইল',
     logout: 'লগ আউট',
     markAttendance: 'উপস্থিতি মার্ক করুন',
@@ -39,9 +42,17 @@ export default {
   },
   sessions: {
     hello: 'হ্যালো!',
-    home: '',
+    home: 'নীড় পাতা',
     title: 'আগের ক্লাসগুলোর উপর ক্লিক করে দেখুন অথবা এডিট করুন ',
-    subtitle1: 'আক্রান্ত রোগীরা',
+    subtitle1: 'উপকৃত রোগী',
     subtitle2: 'টি ক্লাস নেয়া হয়েছে',
+  },
+  hospital: {
+    1: 'রংপুর',
+    2: 'ঠাকুরগাঁও',
+  },
+  toast: {
+    classAdded: 'ক্লাস যোগ করা হয়েছে',
+    classUpdated: 'ক্লাস আপডেট হয়েছে',
   },
 };

@@ -34,13 +34,17 @@ export default function AppNavigator() {
         //   color: 'white',
         // },
         drawerStyle: {
-          // backgroundColor: '#c6cbef',
-          marginLeft: 150,
-          width: 240,
+          width: '53%',
+          position: 'absolute',
+          right: 0,
         },
       }}
       drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="Home" component={HomeScreen} options={{}} />
+      <Drawer.Screen
+        name={i18n.t('menu.home')}
+        component={HomeScreen}
+        options={{}}
+      />
       <Drawer.Screen
         name={i18n.t('menu.markAttendance')}
         component={AddAttendanceScreen}

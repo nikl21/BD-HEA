@@ -16,6 +16,7 @@ import HamburgerMenu from '../Components/HamburgerMenu';
 import ListSession from '../Components/ListSession';
 import firestore from '@react-native-firebase/firestore';
 import i18n from '../Translations';
+import NavButton from '../Components/Button';
 
 export default function SessionListingScreen({navigation}) {
   const [classData, setClassData] = useState();
@@ -43,18 +44,18 @@ export default function SessionListingScreen({navigation}) {
   }, []);
 
   return (
-    <Flex safeArea h="100%">
+    <Flex safeArea h="100%" bg="white">
       <HamburgerMenu navigation={navigation} />
       {classData ? (
         <>
-          <Box bg="appColor" h="34%" py="10" px="8">
+          <Box bg="appColor" h="40%" py="10" px="8">
             <Text fontSize="32" color="white" fontWeight="bold">
               {i18n.t('sessions.hello')}
             </Text>
             <Text fontSize="20" color="white">
               {i18n.t('sessions.title')}
             </Text>
-            <Divider bg="white" my="4" p="0.5" />
+            <Divider bg="white" my="4" thickness="2" />
 
             <HStack space={13}>
               <Text fontSize="36" color="white" fontWeight="bold">
@@ -68,14 +69,19 @@ export default function SessionListingScreen({navigation}) {
                     .reduce((p, c) => p + c, 0),
                 )}
               </Text>
-              <Text fontSize="18" color="white" width="100" fontWeight="600">
+              <Text
+                fontSize="20"
+                color="white"
+                width="100"
+                fontWeight="600"
+                wrap="break-word">
                 {i18n.t('sessions.subtitle1')}
               </Text>
-              <Divider bg="white" orientation="vertical" mx="3" p="0.5" />
+              <Divider bg="white" orientation="vertical" mx="3" thickness="2" />
               <Text fontSize="36" color="white" fontWeight="bold">
                 {Intl.NumberFormat('bn').format(classData.length)}
               </Text>
-              <Text fontSize="18" color="white" width="100" fontWeight="600">
+              <Text fontSize="20" color="white" width="100" fontWeight="600">
                 {i18n.t('sessions.subtitle2')}
               </Text>
             </HStack>
@@ -87,7 +93,7 @@ export default function SessionListingScreen({navigation}) {
             renderItem={({item, index}) => {
               return (
                 <ListSession
-                  name={item.classType}
+                  name={item.name}
                   date={item.date.toDate()}
                   index={index}
                   onPress={() => navigation.navigate('Edit Attendance', item)}
@@ -106,6 +112,14 @@ export default function SessionListingScreen({navigation}) {
           </HStack>
         </Center>
       )}
+      <Box px="8">
+        <NavButton
+          isPrimary={true}
+          colorScheme="primary"
+          label={i18n.t('menu.markAttendance')}
+          onPress={() => navigation.navigate(i18n.t('menu.markAttendance'))}
+        />
+      </Box>
     </Flex>
   );
 }

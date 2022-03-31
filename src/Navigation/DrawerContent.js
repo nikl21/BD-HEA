@@ -6,11 +6,10 @@ import {
 } from '@react-navigation/drawer';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {Text, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Text, StyleSheet, Pressable, View, Platform} from 'react-native';
 import {Colors} from '../Theme';
 import Icon from 'react-native-vector-icons/AntDesign';
-// import AppText from './AppText';
-import {AppContext} from './AppContext';
+// import {AppContext} from './AppContext';
 import i18n from '../Translations';
 
 export default function CustomDrawerContent(props) {
@@ -20,19 +19,40 @@ export default function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <View style={styles.container}>
         <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={props.navigation.toggleDrawer}>
+          <Pressable onPress={props.navigation.toggleDrawer}>
             <Icon
               name={'close'}
               size={30}
-              color={Colors.text}
+              color={'#4d4d4d'}
               style={styles.icon}
             />
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <View style={styles.drawerContent}>
           <Text style={styles.drawerHeader}>{i18n.t('menu.hello')}!</Text>
         </View>
-        <DrawerItemList {...props} />
+        {/* <DrawerItemList {...props} /> */}
+        <DrawerItem
+          style={styles.drawerItem}
+          label={i18n.t('menu.home')}
+          onPress={() => {
+            props.navigation.navigate(i18n.t('menu.home'));
+          }}
+        />
+        <DrawerItem
+          style={styles.drawerItem}
+          label={i18n.t('menu.markAttendance')}
+          onPress={() => {
+            props.navigation.navigate(i18n.t('menu.markAttendance'));
+          }}
+        />
+        <DrawerItem
+          style={styles.drawerItem}
+          label={i18n.t('menu.previousClasses')}
+          onPress={() => {
+            props.navigation.navigate(i18n.t('menu.previousClasses'));
+          }}
+        />
         {/* <DrawerItem
           label="Logout"
           onPress={() => {
@@ -48,8 +68,10 @@ export default function CustomDrawerContent(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // padding: 10,
+  drawerItem: {
+    textTransform: 'uppercase',
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.appColor,
   },
   drawerContent: {
     padding: 20,
@@ -64,7 +86,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    right: 30,
-    top: 15,
+    zIndex: 100,
+    padding: 20,
+    right: Platform.OS === 'ios' ? 10 : 15,
+    top: Platform.OS === 'ios' ? 0 : 20,
   },
 });

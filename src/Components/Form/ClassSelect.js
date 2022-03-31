@@ -14,7 +14,7 @@ export default function ClassSelect({name}) {
   const {setFieldValue, errors, touched, values} = useFormikContext();
 
   return (
-    <FormControl w="130" isRequired isInvalid={name in errors}>
+    <FormControl w="45%" isRequired isInvalid={name in errors}>
       <FormControl.Label fontSize="16">
         {i18n.t('addAttendance.programLabel')}
       </FormControl.Label>
@@ -22,7 +22,7 @@ export default function ClassSelect({name}) {
         <Select
           selectedValue={values[name]}
           onValueChange={value => setFieldValue(name, value)}
-          bg="gray"
+          // bg="gray"
           h="10"
           color="text"
           accessibilityLabel="Choose Class"

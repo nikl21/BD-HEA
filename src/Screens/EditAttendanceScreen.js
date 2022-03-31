@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import NetInfo from '@react-native-community/netinfo';
 
 import firestore from '@react-native-firebase/firestore';
-
+import {StyleSheet} from 'react-native';
 import {Box, Text, VStack, Center, ScrollView, useToast} from 'native-base';
 import i18n from '../Translations';
 import HamburgerMenu from '../Components/HamburgerMenu';
@@ -14,7 +14,7 @@ const EditAttendanceScreen = ({route, navigation}) => {
   const toast = useToast();
   console.log(initialValues.date.toDate());
   return (
-    <Box safeArea>
+    <Box safeArea bg="white" style={styles.box}>
       <ScrollView>
         <BackButton
           onPress={() => {
@@ -78,3 +78,9 @@ const EditAttendanceScreen = ({route, navigation}) => {
 };
 
 export default EditAttendanceScreen;
+
+const styles = StyleSheet.create({
+  box: {
+    flex: 1,
+  },
+});

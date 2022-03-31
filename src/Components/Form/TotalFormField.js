@@ -1,8 +1,9 @@
+/* eslint-disable radix */
 import React from 'react';
 import {useFormikContext} from 'formik';
 import {FormControl, Input, WarningOutlineIcon, Text} from 'native-base';
 
-export default function AppFormField({
+export default function TotalFormField({
   name,
   label,
   placeholder,
@@ -12,7 +13,7 @@ export default function AppFormField({
   const {setFieldTouched, handleBlur, handleChange, errors, touched, values} =
     useFormikContext();
   return (
-    <FormControl isInvalid={name in errors} w={width} {...otherProps}>
+    <FormControl w={width} {...otherProps}>
       <FormControl.Label mb="2">{label}</FormControl.Label>
       <Input
         size="md"
@@ -22,14 +23,20 @@ export default function AppFormField({
         rounded={0}
         h="10"
         onChangeText={handleChange(name)}
-        value={values[name]}
+        value={
+          (
+            parseInt(values.noOfCaregivers) + parseInt(values.noOfMothers)
+          ).toString() === 'NaN'
+            ? '0'
+            : (
+                parseInt(values.noOfCaregivers) + parseInt(values.noOfMothers)
+              ).toString()
+        }
         {...otherProps}
       />
-      {errors[name] && touched[name] && (
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          {errors[name]}
-        </FormControl.ErrorMessage>
-      )}
+      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+        {errors[name]}
+      </FormControl.ErrorMessage>
     </FormControl>
   );
 }

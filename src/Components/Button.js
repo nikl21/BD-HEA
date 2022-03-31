@@ -1,18 +1,25 @@
 import {Button, Text} from 'native-base';
 import React from 'react';
 
-export default function NavButton({label, ...otherProps}) {
+export default function NavButton({
+  label,
+  isPrimary = false,
+  colorScheme = 'button',
+  ...otherProps
+}) {
   return (
     <Button
-      colorScheme="button"
+      colorScheme={colorScheme}
       round="null"
       rounded="0"
+      height="12"
+      // bg="white"
       {...otherProps}
       my="3"
       {...otherProps}>
       <Text
         textTransform="uppercase"
-        color="appColor"
+        color={isPrimary ? 'white' : 'appColor'}
         fontWeight="600"
         fontSize="16">
         {label}

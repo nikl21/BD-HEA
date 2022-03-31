@@ -3,6 +3,7 @@ import {Box, Center, FormControl, Input, Pressable, Text} from 'native-base';
 import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import i18n from '../../Translations';
 
 function formatDate(date) {
   const options = {
@@ -26,19 +27,19 @@ export default function AppDatePicker({
 
   return (
     <>
-      <FormControl isInvalid={name in errors} w="130">
+      <FormControl isRequired isInvalid={name in errors} w="45%">
         <FormControl.Label fontSize="16">{label}</FormControl.Label>
 
         <Pressable onPress={() => setOpen(true)}>
-          <Center height="10" border="1" bg="gray" rounded="0">
-            <Text>
+          <View style={styles.date}>
+            <Text style={{textAlign: 'center'}}>
               {formatDate(
                 values[name] instanceof Date
                   ? values[name]
                   : values[name].toDate(),
               )}
             </Text>
-          </Center>
+          </View>
           <DatePicker
             date={
               values[name] instanceof Date
@@ -48,7 +49,7 @@ export default function AppDatePicker({
             locale={'bn-BA'}
             modal
             mode="date"
-            label={label}
+            title={i18n.t('addAttendance.dateTitle')}
             open={open}
             setOpen={setOpen}
             name={name}
@@ -63,8 +64,20 @@ export default function AppDatePicker({
             }}
           />
         </Pressable>
-        <FormControl.ErrorMessage>{errors[name]}</FormControl.ErrorMessage>
+        {errors[name] && touched[name] && (
+          <FormControl.ErrorMessage>{errors[name]}</FormControl.ErrorMessage>
+        )}
       </FormControl>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  date: {
+    borderWidth: 1,
+    borderColor: '#E7E7EA',
+    textAlign: 'center',
+    justifyContent: 'center',
+    height: 40,
+  },
+});

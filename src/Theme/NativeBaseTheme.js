@@ -2,11 +2,25 @@ import {extendTheme} from 'native-base';
 
 export const theme = extendTheme({
   components: {
+    Input: {
+      baseStyle: {
+        _disabled: {
+          bg: 'white',
+        },
+      },
+    },
     Select: {
       baseStyle: {
         borderRadius: 0,
         marginTop: 0,
         paddingTop: 0,
+      },
+    },
+    FormControlLabel: {
+      baseStyle: {
+        _text: {
+          fontSize: 'md',
+        },
       },
     },
   },
@@ -21,7 +35,9 @@ export const theme = extendTheme({
     error: '#dc3545',
     appColor: '#FAAF1B',
     black: 'black',
+    // backgroundColor: '#F4F4F5',
     backgroundColor: '#F4F4F5',
+    icon: '#4d4d4d',
     containerBorder: '#E7E7EA',
     pickerBorder: '#A4A9AD',
     secondaryColor: '#EA5F65',
@@ -46,7 +62,7 @@ export const theme = extendTheme({
       200: '#FCFCFC',
       300: '#F7F7F7',
       400: '#F0F0F0',
-      500: '#F4F4F5',
+      500: '#FFFFFF',
       600: '#dedddd',
       700: '#cbc8c8',
       800: '#a5a2a2',
