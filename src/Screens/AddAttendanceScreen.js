@@ -15,6 +15,7 @@ import {
   Modal,
   useToast,
   ScrollView,
+  Image,
 } from 'native-base';
 import {PermissionsAndroid, Platform, StyleSheet} from 'react-native';
 import i18n from '../Translations';
@@ -87,8 +88,26 @@ const AddAttendanceScreen = ({navigation}) => {
         },
         setResponse,
       );
+      // toast.show({
+      //   render: () => {
+      //     return (
+      //       <Box bg="primary.500" px="2" py="1" rounded="sm" mb={5}>
+      //         Image Added!
+      //       </Box>
+      //     );
+      //   },
+      // });
     } else {
       await launchImageLibrary({}, setResponse);
+      // toast.show({
+      //   render: () => {
+      //     return (
+      //       <Box bg="primary.500" px="2" py="1" rounded="sm" mb={5}>
+      //         Image Added!
+      //       </Box>
+      //     );
+      //   },
+      // });
     }
 
     setShowModal(!showModal);
@@ -173,11 +192,23 @@ const AddAttendanceScreen = ({navigation}) => {
                   </Modal.Body>
                 </Modal.Content>
               </Modal>
-              <HStack space={10}>
+              <HStack space={5} position="relative">
                 <IconFe name="upload" size={30} color="#212529" />
                 <Text fontSize={18}>
                   {i18n.t('addAttendance.uploadButton')}
                 </Text>
+                {response && (
+                  <Image
+                    source={{
+                      uri: response.assets[0].uri,
+                    }}
+                    alt="Alternate Text"
+                    size={'xs'}
+                    position="absolute"
+                    right={-40}
+                    top={-3}
+                  />
+                )}
               </HStack>
             </Center>
           </Pressable>

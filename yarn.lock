@@ -6814,7 +6814,7 @@ react-native-svg@^12.1.1:
 
 react-native-ux-cam@^5.3.4:
   version "5.3.4"
-  resolved "https://registry.npmjs.org/react-native-ux-cam/-/react-native-ux-cam-5.3.4.tgz"
+  resolved "https://registry.yarnpkg.com/react-native-ux-cam/-/react-native-ux-cam-5.3.4.tgz#c6a8225035e65ee86e2b80c945247a3a162f6e28"
   integrity sha512-SrK3vKXTHs8dfpuyKH/Ie7ogDSi+WifvyEAZxtsqZLcDKpDkBZcwpmzNb0tvg64cUrQm1wiUnxkDNz7MJMkwTQ==
 
 react-native-vector-icons@^9.0.0:
