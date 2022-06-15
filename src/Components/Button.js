@@ -15,7 +15,6 @@ export default function NavButton({
       height="12"
       // bg="white"
       {...otherProps}
-      my="3"
       {...otherProps}>
       <Text
         textTransform="uppercase"

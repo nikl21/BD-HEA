@@ -12,7 +12,6 @@ import BackButton from '../Components/BackButton';
 const EditAttendanceScreen = ({route, navigation}) => {
   const {key, ...initialValues} = route.params;
   const toast = useToast();
-  console.log(initialValues.date.toDate());
   return (
     <Box safeArea bg="white" style={styles.box}>
       <ScrollView>

@@ -5,7 +5,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import auth from '@react-native-firebase/auth';
 import {Text, StyleSheet, Pressable, View, Platform} from 'react-native';
 import {Colors} from '../Theme';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -53,15 +53,13 @@ export default function CustomDrawerContent(props) {
             props.navigation.navigate(i18n.t('menu.previousClasses'));
           }}
         />
-        {/* <DrawerItem
+        <DrawerItem
+          style={styles.drawerItem}
           label="Logout"
           onPress={() => {
-            // setLoggedIn(!isLoggedIn);
-            // setUserData(null);
-            // AsyncStorage.removeItem('token');
-            // AsyncStorage.removeItem('username');
+            auth().signOut();
           }}
-        /> */}
+        />
       </View>
     </DrawerContentScrollView>
   );

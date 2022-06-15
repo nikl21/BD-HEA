@@ -4,7 +4,6 @@ import {
   Divider,
   HStack,
   Text,
-  VStack,
   Flex,
   FlatList,
   Spinner,
@@ -48,11 +47,11 @@ export default function SessionListingScreen({navigation}) {
       <HamburgerMenu navigation={navigation} />
       {classData ? (
         <>
-          <Box bg="appColor" h="40%" py="10" px="8">
+          <Box bg="appColor" h="40%" pt="8" px="8">
             <Text fontSize="32" color="white" fontWeight="bold">
               {i18n.t('sessions.hello')}
             </Text>
-            <Text fontSize="20" color="white">
+            <Text fontSize="18" color="white">
               {i18n.t('sessions.title')}
             </Text>
             <Divider bg="white" my="4" thickness="2" />
@@ -72,7 +71,7 @@ export default function SessionListingScreen({navigation}) {
               <Text
                 fontSize="20"
                 color="white"
-                width="100"
+                width="65"
                 fontWeight="600"
                 wrap="break-word">
                 {i18n.t('sessions.subtitle1')}
@@ -112,7 +111,7 @@ export default function SessionListingScreen({navigation}) {
           </HStack>
         </Center>
       )}
-      <Box px="8">
+      <Box px="8" py="3">
         <NavButton
           isPrimary={true}
           colorScheme="primary"

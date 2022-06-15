@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import NetInfo from '@react-native-community/netinfo';
 import IconFe from 'react-native-vector-icons/Feather';
@@ -21,12 +21,19 @@ import {PermissionsAndroid, Platform, StyleSheet} from 'react-native';
 import i18n from '../Translations';
 import HamburgerMenu from '../Components/HamburgerMenu';
 import AttendanceForm from '../Components/Form/AttendanceForm';
+import {useFocusEffect} from '@react-navigation/native';
 
 const AddAttendanceScreen = ({navigation}) => {
   const [response, setResponse] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const toast = useToast();
-  //Todo: Add Class Id
+  // Todo: Add Class Id
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => setResponse(null);
+    }, []),
+  );
 
   function uploadImageToStorage() {
     if (response) {
