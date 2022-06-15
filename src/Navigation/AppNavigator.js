@@ -20,19 +20,6 @@ export default function AppNavigator() {
         drawerType: 'front',
         headerShown: false,
         drawerActiveTintColor: Colors.appColor,
-
-        // headerShown: false,
-        // headerStyle: {
-        //   backgroundColor: 'appColor',
-        //   elevation: 0,
-        //   shadowOpacity: 0,
-        //   height: 50,
-        // },
-        // headerTitleStyle: {
-        //   fontFamily: 'Assistant-Bold',
-        //   fontSize: 24,
-        //   color: 'white',
-        // },
         drawerStyle: {
           width: '53%',
           position: 'absolute',

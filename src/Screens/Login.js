@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import auth from '@react-native-firebase/auth';
 import {
@@ -10,14 +10,18 @@ import {
   KeyboardAvoidingView,
   Spacer,
   Text,
+  Select,
+  CheckIcon,
 } from 'native-base';
 import NavButton from '../Components/Button';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
+import {Colors} from '../Theme';
 
 const Login = ({navigation}) => {
   const [confirm, setConfirm] = useState(null);
   const [number, setNumber] = useState(null);
   const [code, setCode] = useState('');
+  const [countryCode, setCountryCode] = useState('+91');
 
   // Handle the button press
   async function signInWithPhoneNumber(phoneNumber) {
@@ -37,28 +41,15 @@ const Login = ({navigation}) => {
   return (
     <KeyboardAvoidingView behavior="position">
       <Box safeArea h="100%">
-        <Flex h="60%" bg="white" px="8" py="10">
-          <Center py="8">
+        <Flex h="60%" bg="white" justify="center">
+          <Center>
             <Text fontSize="8xl" bold letterSpacing="4" color="appColor">
               CARE
             </Text>
-            <Text fontSize="4xl" letterSpacing="4" color="text">
+            <Text fontSize="4xl" letterSpacing="4" color="text" marginTop="-6">
               COMPANION
             </Text>
           </Center>
-          <Spacer />
-          <Input
-            value={number}
-            borderColor="appColor"
-            rounded="0"
-            borderWidth="1.5"
-            size="2xl"
-            h="10"
-            letterSpacing="2"
-            placeholder="Enter Your Mobile Number"
-            isDisabled={confirm ? true : false}
-            onChangeText={text => setNumber(text)}
-          />
         </Flex>
         <Flex h="40%" bg="appColor" px="8" py="4">
           <Flex flexDirection="row" flexWrap="wrap" width="100%">
@@ -72,32 +63,70 @@ const Login = ({navigation}) => {
               to this number for verification.
             </Text>
           </Flex>
+
+          <Flex align="flex-end" mt="4" h="30">
+            {confirm && (
+              <TouchableOpacity
+                onPress={() => {
+                  signInWithPhoneNumber(countryCode + number, true);
+                }}>
+                <Text color="white" fontSize="lg" px="2" bold>
+                  Resend OTP
+                </Text>
+              </TouchableOpacity>
+            )}
+          </Flex>
+
           <Spacer />
-          <Center bg="white" py="2">
-            {/* <Input
-            h="10"
-            bg="white"
-            rounded={0}
-            maxLength={6}
-            keyboardType="numeric"
-            value={code}
-            onChangeText={text => setCode(text)}
-            isDisabled={!confirm ? true : false}
-            size="xl"
-            placeholder="Enter OTP"
-          /> */}
-            <OTPInputView
-              pinCount={6}
-              style={{width: '80%', height: 30}}
-              onCodeFilled={text => setCode(text)}
-              codeInputFieldStyle={styles.underlineStyleBase}
-            />
-          </Center>
+          {!confirm ? (
+            <Flex flexDirection="row">
+              <Select
+                selectedValue={countryCode}
+                h="12"
+                w={65}
+                size="lg"
+                marginTop={0.1}
+                accessibilityLabel="Choose Code"
+                placeholder="Choose Service"
+                backgroundColor="white"
+                _selectedItem={{
+                  bg: 'appColor',
+                  endIcon: <CheckIcon size="5" />,
+                }}
+                mt={1}
+                onValueChange={itemValue => setCountryCode(itemValue)}>
+                <Select.Item label="+91" value="+91" />
+              </Select>
+              <Input
+                value={number}
+                flex="1"
+                rounded="0"
+                backgroundColor="white"
+                size="md"
+                placeholderTextColor="text"
+                h="12"
+                letterSpacing="2"
+                placeholder="ENTER YOUR MOBILE NUMBER"
+                onChangeText={text => setNumber(text)}
+              />
+            </Flex>
+          ) : (
+            <Center bg="white" py="2">
+              <OTPInputView
+                pinCount={6}
+                style={styles.otp}
+                onCodeFilled={text => setCode(text)}
+                codeInputFieldStyle={styles.underlineStyleBase}
+              />
+            </Center>
+          )}
           <Spacer />
           <NavButton
-            label={!confirm ? 'SENT OTP' : 'CONFIRM OTP'}
+            label={!confirm ? 'SEND OTP' : 'CONFIRM OTP'}
             onPress={() =>
-              !confirm ? signInWithPhoneNumber(number) : confirmCode()
+              !confirm
+                ? signInWithPhoneNumber(countryCode + number)
+                : confirmCode()
             }
           />
         </Flex>
@@ -106,27 +135,19 @@ const Login = ({navigation}) => {
   );
 };
 const styles = StyleSheet.create({
-  // borderStyleBase: {
-  //   width: 30,
-  //   height: 45,
-  // },
-
-  // borderStyleHighLighted: {
-  //   borderColor: '#03DAC6',
-  // },
-
+  otp: {
+    width: '80%',
+    height: 30,
+  },
   underlineStyleBase: {
     width: 30,
-    marginBottom: 15,
-    // marginRight: 10,
+    marginBottom: 10,
+    fontWeight: '800',
+    color: Colors.text,
     marginHorizontal: 2,
     borderWidth: 0,
     borderBottomWidth: 2,
     borderColor: '#FAAF1B',
-  },
-
-  underlineStyleHighLighted: {
-    borderColor: '#03DAC6',
   },
 });
 export default Login;

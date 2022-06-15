@@ -7,7 +7,6 @@ import AppDatePicker from './AppDatePicker';
 import AppFormField from './AppFormField';
 import TotalFormField from './TotalFormField';
 
-import ClassSelect from './ClassSelect';
 import HospitalSelect from './HospitalSelect';
 import SubmitButton from './SubmitButton';
 

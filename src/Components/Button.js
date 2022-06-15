@@ -10,6 +10,7 @@ export default function NavButton({
   return (
     <Button
       colorScheme={colorScheme}
+      bg={!isPrimary ? 'white' : 'appColor'}
       round="null"
       rounded="0"
       height="12"

@@ -12,7 +12,7 @@ export default function AppFormField({
   const {setFieldTouched, handleBlur, handleChange, errors, touched, values} =
     useFormikContext();
   return (
-    <FormControl isInvalid={name in errors} w={width} {...otherProps}>
+    <FormControl isInvalid={name in errors} w={width} {...otherProps} py={4}>
       <FormControl.Label mb="2">{label}</FormControl.Label>
       <Input
         size="md"

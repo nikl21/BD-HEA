@@ -10,11 +10,11 @@ import {
 import React from 'react';
 import i18n from '../../Translations';
 
-export default function HospitalSelect({name}) {
+export default function HospitalSelect({name, width = '45%'}) {
   const {setFieldValue, errors, touched, values} = useFormikContext();
 
   return (
-    <FormControl w="45%" isRequired isInvalid={name in errors}>
+    <FormControl w={width} isRequired isInvalid={name in errors}>
       <FormControl.Label fontSize="16">
         {i18n.t('addAttendance.hospitalName')}
       </FormControl.Label>
