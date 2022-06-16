@@ -2,6 +2,7 @@ import {Button, Text} from 'native-base';
 import React from 'react';
 
 export default function NavButton({
+  type = 'button',
   label,
   isPrimary = false,
   colorScheme = 'button',
@@ -9,6 +10,7 @@ export default function NavButton({
 }) {
   return (
     <Button
+      type={type}
       colorScheme={colorScheme}
       bg={!isPrimary ? 'white' : 'appColor'}
       round="null"

@@ -10,14 +10,12 @@ import {
 import React from 'react';
 import i18n from '../../Translations';
 
-export default function HospitalSelect({name, width = '45%'}) {
+export default function DesignationSelect({name, width = '45%'}) {
   const {setFieldValue, errors, touched, values} = useFormikContext();
 
   return (
     <FormControl w={width} isRequired isInvalid={name in errors}>
-      <FormControl.Label fontSize="16">
-        {i18n.t('addAttendance.hospitalName')}
-      </FormControl.Label>
+      <FormControl.Label fontSize="16">Designation</FormControl.Label>
       <Box marginTop="0">
         <Select
           selectedValue={values[name]}
@@ -26,14 +24,14 @@ export default function HospitalSelect({name, width = '45%'}) {
           h="10"
           rounded={0}
           color="text"
-          accessibilityLabel="Choose Class"
-          placeholder={i18n.t('addAttendance.programPlaceholder')}
+          accessibilityLabel="Choose Designation"
+          placeholder={'SELECT NURSE'}
           _selectedItem={{
             bg: 'appColor',
             endIcon: <CheckIcon size={5} />,
           }}>
-          <Select.Item label={i18n.t('hospital.1')} value="Rangpur" />
-          <Select.Item label={i18n.t('hospital.2')} value="Thakurgaon" />
+          <Select.Item label={'Nurse'} value="Nurse" />
+          <Select.Item label={'Head Nurse'} value="Head Nurse" />
         </Select>{' '}
       </Box>
       {errors[name] && touched[name] && (

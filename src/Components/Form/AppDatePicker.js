@@ -1,7 +1,7 @@
 import {useFormikContext} from 'formik';
-import {Box, Center, FormControl, Input, Pressable, Text} from 'native-base';
+import {FormControl, Pressable, Text} from 'native-base';
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import i18n from '../../Translations';
 
@@ -21,18 +21,19 @@ export default function AppDatePicker({
   label = 'Date',
   maximumDate = new Date(),
   minimumDate = null,
+  width = '45%',
 }) {
   const {setFieldValue, errors, touched, values} = useFormikContext();
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <FormControl isRequired isInvalid={name in errors} w="45%">
+      <FormControl isRequired isInvalid={name in errors} w={width} py="2">
         <FormControl.Label fontSize="16">{label}</FormControl.Label>
 
         <Pressable onPress={() => setOpen(true)}>
           <View style={styles.date}>
-            <Text style={{textAlign: 'center'}}>
+            <Text px={4}>
               {formatDate(
                 values[name] instanceof Date
                   ? values[name]

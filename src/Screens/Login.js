@@ -22,19 +22,23 @@ const Login = ({navigation}) => {
   const [number, setNumber] = useState(null);
   const [code, setCode] = useState('');
   const [countryCode, setCountryCode] = useState('+91');
+  const [error, setError] = useState(null);
 
   // Handle the button press
   async function signInWithPhoneNumber(phoneNumber) {
-    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-
-    setConfirm(confirmation);
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      setConfirm(confirmation);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async function confirmCode() {
     try {
       await confirm.confirm(code);
-    } catch (error) {
-      console.log('Invalid code.');
+    } catch (err) {
+      setError('Invalid Code');
     }
   }
 
@@ -64,17 +68,28 @@ const Login = ({navigation}) => {
             </Text>
           </Flex>
 
-          <Flex align="flex-end" mt="4" h="30">
+          <Flex flexDirection="row" mt="4" h="30" justify="center" flex={1}>
+            <Box flex={1}>
+              {error && (
+                <Text color="nooraRed" fontSize="lg" p="2" bold>
+                  {error}
+                </Text>
+              )}
+            </Box>
+            {/* <Box flex="1" alignSelf="flex-end"> */}
             {confirm && (
               <TouchableOpacity
                 onPress={() => {
+                  console.log('Press');
+                  setError(null);
                   signInWithPhoneNumber(countryCode + number, true);
                 }}>
-                <Text color="white" fontSize="lg" px="2" bold>
+                <Text color="white" fontSize="lg" px="2" mt="2" bold>
                   Resend OTP
                 </Text>
               </TouchableOpacity>
             )}
+            {/* </Box> */}
           </Flex>
 
           <Spacer />
@@ -123,11 +138,12 @@ const Login = ({navigation}) => {
           <Spacer />
           <NavButton
             label={!confirm ? 'SEND OTP' : 'CONFIRM OTP'}
-            onPress={() =>
+            onPress={() => {
+              setError(null);
               !confirm
                 ? signInWithPhoneNumber(countryCode + number)
-                : confirmCode()
-            }
+                : confirmCode();
+            }}
           />
         </Flex>
       </Box>

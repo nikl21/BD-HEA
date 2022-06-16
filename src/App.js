@@ -19,7 +19,6 @@ export default function App() {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
-
   // Handle user state changes
 
   useEffect(() => {
@@ -31,7 +30,6 @@ export default function App() {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, [initializing]);
-
   if (initializing) return null;
   return (
     <NativeBaseProvider theme={theme}>

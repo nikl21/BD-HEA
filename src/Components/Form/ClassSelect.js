@@ -28,7 +28,7 @@ export default function ClassSelect({name}) {
           accessibilityLabel="Choose Class"
           placeholder={i18n.t('addAttendance.programPlaceholder')}
           _selectedItem={{
-            bg: 'teal.600',
+            bg: 'appColor',
             endIcon: <CheckIcon size={5} />,
           }}>
           <Select.Item label={i18n.t('addAttendance.anc')} value="anc" />
